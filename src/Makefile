@@ -1,13 +1,14 @@
-CC = gcc
+CC     = gcc
 CFLAGS = -Wall -Wextra -O2 -std=c11
 TARGET = taskman
-OBJS = main.o ui.o logic.o storage.o
+OBJS   = main.o ui.o logic.o storage.o
 
 $(TARGET): $(OBJS)
 			$(CC) $(CFLAGS) -o $@ $(OBJS)
-			
+
 %.o: %.c logic.h
 			$(CC) $(CFLAGS) -c $< -o $@
+
 run: $(TARGET)
 			./$(TARGET)
 
