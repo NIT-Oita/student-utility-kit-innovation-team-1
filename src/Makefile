@@ -5,6 +5,7 @@ OBJS = main.o ui.o logic.o storage.o
 
 $(TARGET): $(OBJS)
 			$(CC) $(CFLAGS) -o $@ $(OBJS)
+			
 %.o: %.c logic.h
 			$(CC) $(CFLAGS) -c $< -o $@
 run: $(TARGET)
