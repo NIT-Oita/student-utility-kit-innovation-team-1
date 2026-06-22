@@ -8,23 +8,23 @@ void showMenu(){
     printf("2.ToDoリストを表示する\n");
     printf("3.この項目を「完了」にする\n");
     printf("4.この項目を削除する\n");
-    printf("4.ToDoを検索する\n");
-    printf("4.すべての項目を削除する\n");
-    printf("4.終了する\n");
+    printf("5.ToDoを検索する\n");
+    printf("6.すべての項目を削除する\n");
+    printf("7.終了する\n");
     printf("選択してください。\n");
 }
 
-void addTask(Task,list[],int *count){
+void addTask(Task list[],int *count){
     Task*t=&list[*count];
 
     printf("ID:");
     scanf("%d",&t->id);
 
     printf("タスク名");
-    scanf("%63[^\n]",t->title);
+    scanf(" %63[^\n]", t->title);
 
     printf("締切日");
-    scanf("%19s",t->deadline);
+    scanf("%10s",t->deadline);
 
     printf("優先度");
     scanf("%d",&t->priority);
