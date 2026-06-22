@@ -14,7 +14,7 @@ void showMenu(){
     printf("選択してください。\n");
 }
 
-void addTask(Todo,list[],int *count){
+void addTask(Task,list[],int *count){
     Task*t=&list[*count];
 
     printf("ID:");
@@ -34,20 +34,20 @@ void addTask(Todo,list[],int *count){
     (*count)++;
 }
 
-void showTask(Todo list[],int count){
+void showTask(Task list[],int count){
     printf("\nID\tタスク名\t締切日\t優先度\t状態\n");
 
     for(int i=0;i<count;i++){
         printf("%d\t%s\t%s\t%d\t%s\n",
-        list[i],id,
-        list[i],title,
-        list[i],deadline,
-        list[i],priority,
-        list[i],done?"完了":"未完了");
+        list[i].id,
+        list[i].title,
+        list[i].deadline,
+        list[i].priority,
+        list[i].done?"完了":"未完了");
     }
 }
 
-void completeTask(Todo list[],int count){
+void completeTask(Task list[],int count){
     int id;
     printf("完了するIDを入力してください。: ");
     scanf("%d",&id);
@@ -63,7 +63,7 @@ printf("該当するIDが見つかりません。\n");
 }
 
 
-void deleteTask(Todo list[],int *count){
+void deleteTask(Task list[],int *count){
     int id;
     printf("削除するIDを入力してください。: ");
     scanf("%d",&id);
@@ -71,7 +71,7 @@ void deleteTask(Todo list[],int *count){
     for(int i=0;i<*count;i++){
         if(list[i].id==id){
             for(int j=i;j<*count-1;j++){
-                list[j]=ist[j+1];
+                list[j]=list[j+1];
             }
 
             (*count)--;
@@ -86,7 +86,7 @@ void searchTask(Task list[],int count){
     char key[64];
     
     printf("検索語:");
-    scanf("%63[^\n], key");
+    scanf("%63[^\n]", key);
 
     for(int i = 0; i < count; i++){
          if(strstr(list[i].title, key)){
