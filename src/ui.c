@@ -86,7 +86,7 @@ void searchTask(Task list[],int count){
     char key[64];
     
     printf("検索語:");
-    scanf("%63[^\n]", key);
+    scanf(" %63[^\n]", key);
 
     for(int i = 0; i < count; i++){
          if(strstr(list[i].title, key)){
