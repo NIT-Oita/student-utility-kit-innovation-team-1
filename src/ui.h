@@ -1,17 +1,17 @@
 #ifndef UI_H
 #define UI_H
 
-typedef strcut{
-    char task[100];
-    int done;
-}Todo;
+#include "logic.h"
 
-void showMenu();
-void addTask(Todo todo[],int *count);
-void showTask(Todo todo[],int count);
-void completeTask(Todo todo[],int count);
-void deleteTask(Todo todo[],int *count);
-void searchTask(Todo todo[],int count);
+/* メニュー表示 */
+void showMenu(void);
+
+/* UI操作 */
+void addTask(Task list[], int *count);
+void showTask(Task list[], int count);
+void completeTask(Task list[], int count);
+void deleteTask(Task list[], int *count);
+void searchTask(Task list[], int count);
 void clearAll(int *count);
 
 #endif

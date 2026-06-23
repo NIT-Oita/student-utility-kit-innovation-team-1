@@ -1,66 +1,106 @@
 #include <stdio.h>
 #include <string.h>
-#include "ui.h"
+#include "logic.h"
 
 void showMenu(){
     printf("\n===== ToDo =====\n");
-    printf("1.新しい項目を追加する");
-    printf("2.ToDoリストを表示する");
-    printf("3.この項目を「完了」にする");
-    printf("4.この項目を削除する");
-    printf("5.ToDoを検索する");
-    printf("6.すべての項目を削除する");
-    printf("7.ToDoリストを閉じる");
-    printf("選択してください。");
+    printf("1.新しい項目を追加する\n");
+    printf("2.ToDoリストを表示する\n");
+    printf("3.この項目を「完了」にする\n");
+    printf("4.この項目を削除する\n");
+    printf("5.ToDoを検索する\n");
+    printf("6.すべての項目を削除する\n");
+    printf("7.終了する\n");
+    printf("選択してください。\n");
 }
 
-void addTask(Todo.todo[],int *count){
-    printf("内容を入力してください。\n");
-    scanf("%[^\n]",todo[*count].task);
-    todo[*count].done=0;
+void addTask(Task list[],int *count){
+    Task*t=&list[*count];
+
+    printf("ID:");
+    scanf("%8d",&t->id);
+
+    printf("タスク名");
+    scanf(" %63[^\n]", t->title);
+
+    printf("締切日");
+    scanf("%10s",t->deadline);
+
+    printf("優先度");
+    scanf("%8d",&t->priority);
+
+    t->done=0;
+
     (*count)++;
+}
 
-void showTask(Todo todo[],int count){
+void showTask(Task list[],int count){
+    printf("\nID\tタスク名\t締切日\t優先度\t状態\n");
+
     for(int i=0;i<count;i++){
-        printf("%d,[%s] %s\n",
-        i+1,todo[i].done ? "✓" : " ",todo[i].task);
+        printf("%d\t%s\t%s\t%d\t%s\n",
+        list[i].id,
+        list[i].title,
+        list[i].deadline,
+        list[i].priority,
+        list[i].done?"完了":"未完了");
     }
 }
 
-void completeTask(Todo todo[],int count){
-    int n;
-    printf("完了する番号を入力してください。: ");
-    scanf("%d",&n);
+void completeTask(Task list[],int count){
+    int id;
+    printf("完了するIDを入力してください。: ");
+    scanf("%d",&id);
 
-    if(n>=1 && n<=count)
-        todo[n-1].done=1;
-}
-
-void deleteTask(Todo todo[],int *count){
-    int n;
-    printf("削除する番号を入力してください。: ");
-    scanf("%d",&n);
-
-    if(n>=1 && n<=*count){
-        for(int i=n-1;i<*count;i++){
-                todo[i]=todo[i+1];
+    for(int i=0;i<count;i++){
+        if(list[i].id==id){
+            list[i].done=1;
+            printf("完了にしました。\n");
+            return;
         }
-        (*count)--;
+    }
+printf("該当するIDが見つかりません。\n");
+}
+
+
+void deleteTask(Task list[],int *count){
+    int id;
+    printf("削除するIDを入力してください。: ");
+    scanf("%d",&id);
+
+    for(int i=0;i<*count;i++){
+        if(list[i].id==id){
+            for(int j=i;j<*count-1;j++){
+                list[j]=list[j+1];
+            }
+
+            (*count)--;
+            printf("削除しました。\n");
+            return ;
+        }
+    }
+    printf("該当するIDが見つかりません。\n");
+    }
+
+void searchTask(Task list[],int count){
+    char key[64];
+    
+    printf("検索語:");
+    scanf(" %63[^\n]", key);
+
+    for(int i = 0; i < count; i++){
+         if(strstr(list[i].title, key)){
+            printf("%d %s %s %d %s\n",
+                  list[i].id,
+                  list[i].title,
+                  list[i].deadline,
+                  list[i].priority,
+                  list[i].done ? "完了" : "未完了");
+         }
     }
 }
 
-void searchTask(Todo todo[],int count){
-    char key[100];
-    printf("検索: ");
-    scanf("%[^\n]",key);
-
-    for(inti=0;i<count;i++){
-        if(strstr(todo[i].task,key))
-        printf("%d.%s\n",i+1,todo[i].task);
-    }
-}
-
-void clearAll(int *count){
-    *count=0;
-    printf("すべての項目を削除しました。\n");
+void clearAll(int *count) {
+   *count = 0;
+   printf("すべての項目を削除しました。\n");
 }

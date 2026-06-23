@@ -33,7 +33,7 @@ int save_tasks(const char *path, Task *list, int count) {
 
     for (int i = 0; i < count; i++) {
         fprintf(fp,
-                "%d,%s,%s,%d,%d\n",
+                "%8d,%8s,%8s,%8d,%8d\n",
                 list[i].id,
                 list[i].title,
                 list[i].deadline,
